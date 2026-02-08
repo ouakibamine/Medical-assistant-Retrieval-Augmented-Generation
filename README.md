@@ -17,10 +17,11 @@ Ce projet est un **chatbot médical intelligent** basé sur **LangChain** et **P
 ```bash
 git clone https://github.com/entbappy/Build-a-Complete-Medical-Chatbot-with-LLMs-LangChain-Pinecone-Flask-AWS.git
 cd Build-a-Complete-Medical-Chatbot-with-LLMs-LangChain-Pinecone-Flask-AWS
-
+```
 ## 2 Install dependencies
+```
 pip install -r requirements.txt
-
+```
 ## 3 Create .env file
 
 Create a .env file in the root directory and add:
