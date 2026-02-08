@@ -1,130 +1,109 @@
-# Build-a-Complete-Medical-Chatbot-with-LLMs-LangChain-Pinecone-Flask-AWS
+# 🏥 Build-a-Complete-Medical-Chatbot-with-LLMs-LangChain-Pinecone-Flask-AWS
 
-# How to run?
+Ce projet est un **chatbot médical intelligent** basé sur **LangChain** et **Pinecone**, enrichi avec :
+- 🌐 **Ngrok** pour exposer l’application localement
+- 🤖 **Support multi-modèles LLM** avec sélection dynamique par l’utilisateur
+- ☁️ **Déploiement CI/CD AWS** avec GitHub Actions
+
+---
+
+## 🚀 How to run?
 ### STEPS:
 
-Clone the repository
+---
+
+## 1 Clone the repository
 
 ```bash
-git clonehttps://github.com/entbappy/Build-a-Complete-Medical-Chatbot-with-LLMs-LangChain-Pinecone-Flask-AWS.git
-```
-### STEP 01- Create a conda environment after opening the repository
+git clone https://github.com/entbappy/Build-a-Complete-Medical-Chatbot-with-LLMs-LangChain-Pinecone-Flask-AWS.git
+cd Build-a-Complete-Medical-Chatbot-with-LLMs-LangChain-Pinecone-Flask-AWS
 
-```bash
-conda create -n medibot python=3.10 -y
-```
-
-```bash
-conda activate medibot
-```
-
-
-### STEP 02- install the requirements
-```bash
+## 2 Install dependencies
 pip install -r requirements.txt
-```
 
+## 3 Create .env file
 
-### Create a `.env` file in the root directory and add your Pinecone & openai credentials as follows:
+Create a .env file in the root directory and add:
 
-```ini
-PINECONE_API_KEY = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
-OPENAI_API_KEY = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
-```
+PINECONE_API_KEY="xxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+OPENAI_API_KEY="xxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
 
-
-```bash
-# run the following command to store embeddings to pinecone
+## 4 Store embeddings in Pinecone
 python store_index.py
-```
 
-```bash
-# Finally run the following command
+
+## 5 Run the Flask application
 python app.py
-```
-
-Now,
-```bash
-open up localhost:
-```
 
 
-### Techstack Used:
+Open in your browser:
 
-- Python
-- LangChain
-- Flask
-- GPT
-- Pinecone
+http://localhost:5000
 
+## 6 Multi-Model LLM Support
 
+The application allows users to select the AI model dynamically from the UI.
 
-# AWS-CICD-Deployment-with-Github-Actions
+Supported Models
 
-## 1. Login to AWS console.
+Llama 3.3 – 70B
 
-## 2. Create IAM user for deployment
+GPT OSS – 120B
 
-	#with specific access
+Llama 4 Maverick – 17B
 
-	1. EC2 access : It is virtual machine
+Qwen 3 – 32B (Medical Expert)
 
-	2. ECR: Elastic Container registry to save your docker image in aws
+Llama 3.1 – 8B (Fast)
 
+Kimi K2 – Long Context
 
-	#Description: About the deployment
+Model Selector (UI)
+<div class="model-selector">
+  <label for="modelSelect">
+    <i class="fas fa-robot"></i> AI Model:
+  </label>
+  <select id="modelSelect" class="custom-select">
+    <option value="llama-3.3-70b-versatile">Llama 3.3 70B</option>
+    <option value="openai/gpt-oss-120b">GPT OSS 120B</option>
+    <option value="meta-llama/llama-4-maverick-17b-128e-instruct">
+      Llama 4 Maverick 17B
+    </option>
+    <option value="qwen/qwen3-32b">Qwen 3 32B – Medical Expert</option>
+    <option value="llama-3.1-8b-instant">Llama 3.1 8B Fast</option>
+    <option value="moonshotai/kimi-k2-instruct-0905">
+      Kimi K2 – Long Context
+    </option>
+  </select>
+</div>
 
-	1. Build docker image of the source code
+## 7 Architecture Overview
+User
+ ↓
+Flask Web UI
+ ↓
+LangChain (RAG Pipeline)
+ ↓
+Pinecone Vector DB
+ ↓
+Selected LLM (Dynamic)
 
-	2. Push your docker image to ECR
+## 8 Tech Stack Used
 
-	3. Launch Your EC2 
+Python
 
-	4. Pull Your image from ECR in EC2
+LangChain
 
-	5. Lauch your docker image in EC2
+Flask
 
-	#Policy:
+Pinecone
 
-	1. AmazonEC2ContainerRegistryFullAccess
+Multiple LLMs (OpenAI, LLaMA, Qwen, etc.)
 
-	2. AmazonEC2FullAccess
+Ngrok
 
-	
-## 3. Create ECR repo to store/save docker image
-    - Save the URI: 315865595366.dkr.ecr.us-east-1.amazonaws.com/medicalbot
+Docker
 
-	
-## 4. Create EC2 machine (Ubuntu) 
+AWS (EC2, ECR)
 
-## 5. Open EC2 and Install docker in EC2 Machine:
-	
-	
-	#optinal
-
-	sudo apt-get update -y
-
-	sudo apt-get upgrade
-	
-	#required
-
-	curl -fsSL https://get.docker.com -o get-docker.sh
-
-	sudo sh get-docker.sh
-
-	sudo usermod -aG docker ubuntu
-
-	newgrp docker
-	
-# 6. Configure EC2 as self-hosted runner:
-    setting>actions>runner>new self hosted runner> choose os> then run command one by one
-
-
-# 7. Setup github secrets:
-
-   - AWS_ACCESS_KEY_ID
-   - AWS_SECRET_ACCESS_KEY
-   - AWS_DEFAULT_REGION
-   - ECR_REPO
-   - PINECONE_API_KEY
-   - OPENAI_API_KEY
+GitHub Actions
